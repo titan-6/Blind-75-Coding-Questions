@@ -1,4 +1,4 @@
-# HackerRank-Coding-questions
+# HackerRank-Coding-Questions
 
 Hi everyone,
 
