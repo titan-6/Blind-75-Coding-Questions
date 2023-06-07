@@ -1,0 +1,54 @@
+# Minimum Window Substring
+
+# Given two strings s and t of lengths m and n respectively, return the minimum window 
+substring
+of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+The testcases will be generated such that the answer is unique.
+
+def minWindow(self, s: str, t: str) -> str:
+        # t is empty
+        if t == "":
+            return ""
+
+        # CountT (doesn't change) and Window maps
+        countT, window = {}, {}
+
+        for c in t:
+            # if c exists in the map get the value, else puts a zero
+            countT[c] = 1 + countT.get(c, 0)    
+
+        # have for the unique letters, while need is the unique letters we have
+        have, need =  0, len(countT)    
+        
+        # res is values for left and right pointer, while resLen is the highest value.
+        res, resLen = [-1, -1], float("infinity")
+        l = 0
+        for r in range(len(s)):
+            c = s[r]
+
+            # if c exists in the map get the value, else puts a zero
+            window[c] = 1 + window.get(c, 0)
+
+            # if c exists in countT as well as window[c] amd countT[c] are the same    
+            if c in countT and  window[c] == countT[c]:
+                have += 1
+
+            while have == need:
+                # update our result   
+                if (r - l + 1) < resLen:
+                    res = [l, r]
+                    resLen (r - l + 1)
+
+                # pop from the left of our window
+                window[s[l]] -= 1
+
+                # if s[l] exists in countT as well as window[s[l]] amd countT[s[l]] are the same    
+                if s[l] in countT and  window[s[l]] == countT[s[l]]:
+                    have -= 1
+                l += 1   
+        # update the left and right pointer         
+        l, r = res
+        
+        # return and check the value
+        return s[l:r+1] if resLen != float("infinity") else ""
